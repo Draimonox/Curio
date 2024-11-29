@@ -6,10 +6,11 @@ import {
   Center,
   Divider,
   FileInput,
+  Flex,
   Input,
   PasswordInput,
-  Textarea,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import logo from "../../public/trimmies.png";
 // import fallback from "./icon.ico";
@@ -17,6 +18,7 @@ import Image from "next/image";
 // import { useEffect, useState } from "react";
 
 function SignUp() {
+  // TS Here
   return (
     <>
       <Center style={{ padding: "20px" }}>
@@ -28,7 +30,7 @@ function SignUp() {
           //  onSubmit={handleRegister}
         >
           <div>
-            <Title order={1}>Sign Up</Title>
+            <Title order={1}>Sign up</Title>
             <Divider my="md" />
           </div>
 
@@ -36,8 +38,8 @@ function SignUp() {
             variant="unstyled"
             size="md"
             radius="lg"
-            label="Profile Picture"
-            placeholder="Click Here"
+            label="Profile picture"
+            placeholder="Click here"
             style={{ marginTop: "10px" }}
             // onChange={handleImageChange}
           />
@@ -62,40 +64,35 @@ function SignUp() {
               </>
             )} */}
           </Center>
-          <div style={{ position: "relative", marginBottom: "10px" }}>
+
+          <Flex
+            style={{ marginBottom: "10px" }}
+            align="center"
+            gap={10}
+            // justify="center"
+          >
             <Input
               variant="filled"
               size="lg"
               radius="xl"
-              placeholder="Name"
-              style={{ width: "100%", marginBottom: "10px" }}
-              // value={name}
-              // onChange={(e) => setName(e.target.value)}
+              placeholder="Username"
+              style={{ width: "100%" }}
+              // value={username}
+              // onChange={(e) => setUsername(e.target.value)}
             />
-            <div style={{ position: "relative", marginBottom: "10px" }}>
-              <Input
-                variant="filled"
-                size="lg"
-                radius="xl"
-                placeholder="Username"
-                style={{ width: "100%" }}
-                // value={username}
-                // onChange={(e) => setUsername(e.target.value)}
-              />
-              <span
-                style={{
-                  color: "red",
-                  position: "absolute",
-                  top: "50%",
-                  right: "-20px",
-                  transform: "translateY(-50%)",
-                }}
-              >
-                *
-              </span>
-            </div>
-          </div>
-          <div style={{ position: "relative", marginBottom: "10px" }}>
+            <Tooltip label="You will not be able to change your username as we are in beta">
+              <p>?</p>
+            </Tooltip>
+            <span
+              style={{
+                color: "red",
+              }}
+            >
+              *
+            </span>
+          </Flex>
+
+          <Flex align="center" gap={10} style={{ marginBottom: "10px" }}>
             <Input
               variant="filled"
               size="lg"
@@ -108,16 +105,16 @@ function SignUp() {
             <span
               style={{
                 color: "red",
-                position: "absolute",
-                top: "50%",
-                right: "-20px",
-                transform: "translateY(-50%)",
               }}
             >
               *
             </span>
-          </div>
-          <div style={{ position: "relative", marginBottom: "10px" }}>
+          </Flex>
+          <Flex
+            align="center"
+            gap={10}
+            style={{ position: "relative", marginBottom: "10px" }}
+          >
             <PasswordInput
               variant="filled"
               size="lg"
@@ -130,28 +127,12 @@ function SignUp() {
             <span
               style={{
                 color: "red",
-                position: "absolute",
-                top: "50%",
-                right: "-20px",
-                transform: "translateY(-50%)",
               }}
             >
               *
             </span>
-          </div>
-          <Textarea
-            placeholder="Bio"
-            label="Write something about yourself for others to see!"
-            radius="xl"
-            variant="filled"
-            autosize
-            maxLength={100}
-            minRows={1}
-            size="md"
-            // value={bio}
-            // onChange={(e) => setBio(e.target.value)}
-            style={{ marginTop: "15px" }}
-          />
+          </Flex>
+
           <Button
             variant="filled"
             size="lg"
