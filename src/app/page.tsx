@@ -24,7 +24,7 @@ function SignUp() {
       <Center style={{ padding: "20px" }}>
         <Image src={logo} alt="Logo" height={50} />
       </Center>
-      <Center style={{ marginTop: "5vh" }}>
+      <Center style={{ marginTop: "10vh" }}>
         <form
           style={{ width: "20%" }}
           //  onSubmit={handleRegister}
