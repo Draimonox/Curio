@@ -1,7 +1,13 @@
+"use client";
+
+import { Center } from "@mantine/core";
+
 function SignUp() {
   return (
     <>
-      <h1>Sign Up</h1>
+      <Center>
+        <p>Hello World</p>
+      </Center>
     </>
   );
 }
