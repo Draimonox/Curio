@@ -1,13 +1,16 @@
 "use client";
 
 import { Center } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 function SignUp() {
   return (
     <>
-      <Center>
-        <p>Hello World</p>
-      </Center>
+      <div>
+        <Center>
+          <p>Hello World</p>
+        </Center>
+      </div>
     </>
   );
 }
