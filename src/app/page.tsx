@@ -13,12 +13,23 @@ import {
   Tooltip,
 } from "@mantine/core";
 import logo from "../../public/trimmies.png";
-// import fallback from "./icon.ico";
 import Image from "next/image";
 // import { useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
+//
 function SignUp() {
-  // TS Here
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const isValidEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  async function handleRegister(e: ChangeEvent<HTMLFormElement>) {}
+
   return (
     <>
       <Center style={{ padding: "20px" }}>
@@ -77,8 +88,8 @@ function SignUp() {
               radius="xl"
               placeholder="Username"
               style={{ width: "100%" }}
-              // value={username}
-              // onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <Tooltip label="You will not be able to change your username as we are in beta">
               <p>?</p>
@@ -98,8 +109,8 @@ function SignUp() {
               size="lg"
               radius="xl"
               placeholder="Email"
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={{ width: "100%" }}
             />
             <span
@@ -121,8 +132,8 @@ function SignUp() {
               radius="xl"
               placeholder="Password"
               style={{ width: "100%" }}
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <span
               style={{
