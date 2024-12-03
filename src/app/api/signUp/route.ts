@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client/extension";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -25,7 +26,17 @@ export async function POST(req: Request) {
         image,
       },
     });
-    return NextResponse.json({ createUser });
+
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      return NextResponse.json(
+        { error: "JWT is not defined" },
+        { status: 500 }
+      );
+    }
+
+    const token = jwt.sign({ id: createUser.id }, secret, { expiresIn: "1h" });
+    return NextResponse.json({ id: createUser.id, token }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

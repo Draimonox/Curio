@@ -28,7 +28,41 @@ function SignUp() {
     return regex.test(email);
   };
 
-  async function handleRegister(e: ChangeEvent<HTMLFormElement>) {}
+  async function handleRegister(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!email || !username || !password) {
+      alert("Please fill in all required fields");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    const lowerCaseUsername = username.toLowerCase();
+    const lowerCaseEmail = email.toLowerCase();
+    try {
+      const response = await fetch("/api/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: lowerCaseEmail,
+          username: lowerCaseUsername,
+          password,
+          bio,
+          image,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while creating your account");
+    }
+  }
 
   return (
     <>
@@ -36,10 +70,7 @@ function SignUp() {
         <Image src={logo} alt="Logo" height={50} />
       </Center>
       <Center style={{ marginTop: "10vh" }}>
-        <form
-          style={{ width: "20%" }}
-          //  onSubmit={handleRegister}
-        >
+        <form style={{ width: "20%" }} onSubmit={handleRegister}>
           <div>
             <Title order={1}>Sign up</Title>
             <Divider my="md" />
