@@ -18,6 +18,7 @@ import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import user from "../../public/user.png";
 import { StaticImageData } from "next/image";
+import { setCookie } from "cookies-next";
 
 //
 function SignUp() {
@@ -28,12 +29,12 @@ function SignUp() {
   const [image, setImage] = useState<File | StaticImageData | null>(null);
   // const [bio, setBio] = useState("");
 
-  // Check
+  // Check if email is valid
   const isValidEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-
+  // Handling the upload of user info to Database
   async function handleRegister(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email || !username || !password) {
@@ -45,6 +46,7 @@ function SignUp() {
       return;
     }
 
+    //
     const lowerCaseUsername = username.toLowerCase();
     const lowerCaseEmail = email.toLowerCase();
     try {
@@ -63,6 +65,12 @@ function SignUp() {
 
       const data = await response.json();
       console.log(data);
+
+      if (response.ok) {
+        setCookie("token", data.token);
+        alert("Account created successfully");
+        window.location.href = "/login";
+      }
     } catch (error) {
       console.error(error);
       alert("An error occurred while creating your account");
