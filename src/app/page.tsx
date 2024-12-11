@@ -16,6 +16,8 @@ import logo from "../../public/trimmies.png";
 import Image from "next/image";
 // import { useEffect, useState } from "react";
 import { ChangeEvent, useState } from "react";
+import user from "../../public/user.png";
+import { StaticImageData } from "next/image";
 
 //
 function SignUp() {
@@ -23,6 +25,10 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [image, setImage] = useState<File | StaticImageData | null>(null);
+  // const [bio, setBio] = useState("");
+
+  // Check
   const isValidEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -51,7 +57,6 @@ function SignUp() {
           email: lowerCaseEmail,
           username: lowerCaseUsername,
           password,
-          bio,
           image,
         }),
       });
@@ -83,7 +88,14 @@ function SignUp() {
             label="Profile picture"
             placeholder="Click here"
             style={{ marginTop: "10px" }}
-            // onChange={handleImageChange}
+            onChange={(file) => {
+              if (!file) {
+                setImage(user);
+                console.log(image);
+              } else {
+                setImage(file);
+              }
+            }}
           />
           <Center>
             {/* {url && (
@@ -178,7 +190,7 @@ function SignUp() {
           <Button
             variant="filled"
             size="lg"
-            color="#B76E79"
+            color="#5fd3dc"
             radius="xl"
             style={{ marginTop: "15px" }}
             type="submit"

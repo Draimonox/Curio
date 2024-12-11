@@ -7,14 +7,13 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const { email, password, username, bio, image } = await req.json();
+    const { email, password, username, image } = await req.json();
     if (!email || !password || !username) {
       return NextResponse.json(
         { error: "Please fill in all required fields" },
         { status: 400 }
       );
     }
-
     const salt = bcrypt.genSaltSync();
     const hash = bcrypt.hashSync(password, salt);
     const createUser = await prisma.user.create({
@@ -22,11 +21,9 @@ export async function POST(req: Request) {
         email,
         password: hash, // TODO: MAKE SURE TO HASH PASSWORD
         username,
-        bio,
         image,
       },
     });
-
     const secret = process.env.JWT_SECRET;
     if (!secret) {
       return NextResponse.json(
@@ -34,7 +31,6 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-
     const token = jwt.sign({ id: createUser.id }, secret, { expiresIn: "1h" });
     return NextResponse.json({ id: createUser.id, token }, { status: 200 });
   } catch (error) {
