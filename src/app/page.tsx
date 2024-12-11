@@ -14,16 +14,15 @@ import {
   Text,
 } from "@mantine/core";
 import logo from "../../public/trimmies.png";
-import Image, { StaticImageData } from "next/image";
 // import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
-import user from "../../public/user.png";
+// import user from "../../public/user.png";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<string>("");
   // const [bio, setBio] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -97,7 +96,7 @@ function SignUp() {
             placeholder="Click here"
             style={{ marginTop: "10px", maxWidth: "150px" }}
             // onChange={(file) => {
-            //   if (!file) setImage(null);
+            //   if (!file) setImage(user);
             //   else setImage(file);
             // }}
           />
