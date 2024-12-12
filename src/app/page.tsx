@@ -34,15 +34,17 @@ function SignUp() {
 
   // Step 1: Initialize Firebase storage
 
-  const storage = getStorage();
-  const storageRef = ref(storage, "images/" + image.name);
-
   // Step 2: Function to handle image upload
 
-  function handleImageUpload(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files ? e.target.files[0] : null;
+  async function handleImageUpload(file: File) {
     if (!file) {
       setImage(user);
+    } else {
+      const storageRef = ref(storage, "images/" + file.name);
+      console.log(file.name);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      setImage(downloadURL);
     }
   }
   // Step 3: Upload the image to Firebase storage
@@ -116,7 +118,11 @@ function SignUp() {
             label="Profile picture"
             placeholder="Click here"
             style={{ marginTop: "10px", maxWidth: "150px" }}
-            // onChange={}
+            onChange={(file) => {
+              if (file) {
+                handleImageUpload(file);
+              }
+            }}
             // TODO: Image goes here
           />
 

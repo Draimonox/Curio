@@ -8,14 +8,13 @@ import { getFirestore, Firestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBKLw9xthJ5s8UwDpBqmAAIhAfSAl_UDxc",
-  authDomain: "curio-bd4d2.firebaseapp.com",
-  projectId: "curio-bd4d2",
-  storageBucket: "curio-bd4d2.firebasestorage.app",
-  messagingSenderId: "504855252803",
-  appId: "1:504855252803:web:87dd8e483ff679b7cee9f6",
+  apiKey: "AIzaSyBbE-sO9YZKwuv4fkJNn4E9Y5ON9-BxENY",
+  authDomain: "blogup-ee20a.firebaseapp.com",
+  projectId: "blogup-ee20a",
+  storageBucket: "blogup-ee20a.appspot.com",
+  messagingSenderId: "116595688263",
+  appId: "1:116595688263:web:765c495171dd7c66320262",
 };
-
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
