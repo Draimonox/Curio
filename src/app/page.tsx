@@ -19,13 +19,15 @@ import { ChangeEvent } from "react";
 import Image, { StaticImageData } from "next/image";
 import { storage } from "@/firebaseConfig";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import user from "../../public/user.png";
+// import user from "../../public/user.png";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState<StaticImageData | string>("");
+  const [image, setImage] = useState<StaticImageData | string>(
+    "https://firebasestorage.googleapis.com/v0/b/blogup-ee20a.appspot.com/o/images%2Fuser.png?alt=media&token=57b96fb8-c542-4489-9610-e98b66bbb035"
+  );
   // const [bio, setBio] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,13 +40,15 @@ function SignUp() {
 
   async function handleImageUpload(file: File) {
     if (!file) {
-      setImage(user);
+      return;
     } else {
-      const storageRef = ref(storage, "images/" + file.name);
-      console.log(file.name);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      setImage(downloadURL);
+      if (file) {
+        const storageRef = ref(storage, "images/" + file.name);
+        console.log(file.name);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        setImage(downloadURL);
+      }
     }
   }
   // Step 3: Upload the image to Firebase storage
@@ -73,7 +77,6 @@ function SignUp() {
 
     const lowerCaseUsername = username.toLowerCase();
     const lowerCaseEmail = email.toLowerCase();
-
     try {
       const response = await fetch("/api/signUp", {
         method: "POST",
@@ -119,11 +122,10 @@ function SignUp() {
             placeholder="Click here"
             style={{ marginTop: "10px", maxWidth: "150px" }}
             onChange={(file) => {
-              if (file) {
-                handleImageUpload(file);
+              if (file instanceof File) {
+                handleImageUpload(file); // Pass null if no file is selected
               }
             }}
-            // TODO: Image goes here
           />
 
           {error && <Text color="red">{error}</Text>}
