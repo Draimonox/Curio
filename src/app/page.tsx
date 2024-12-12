@@ -16,6 +16,7 @@ import {
 import logo from "../../public/trimmies.png";
 // import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
+import Image from "next/image";
 // import user from "../../public/user.png";
 
 function SignUp() {
