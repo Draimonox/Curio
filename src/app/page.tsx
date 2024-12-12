@@ -16,18 +16,38 @@ import {
 import logo from "../../public/trimmies.png";
 // import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
-import Image from "next/image";
-// import user from "../../public/user.png";
+import Image, { StaticImageData } from "next/image";
+import { storage } from "@/firebaseConfig";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import user from "../../public/user.png";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<StaticImageData | string>("");
   // const [bio, setBio] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  // const [image, setImage] = useState<File | null>(null);
   // const router = useRouter();
+
+  // Step 1: Initialize Firebase storage
+
+  const storage = getStorage();
+  const storageRef = ref(storage, "images/" + image.name);
+
+  // Step 2: Function to handle image upload
+
+  function handleImageUpload(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file) {
+      setImage(user);
+    }
+  }
+  // Step 3: Upload the image to Firebase storage
+  // Step 4: Set the image URL to state
+  // Step 5: Handle file input change
 
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -60,7 +80,7 @@ function SignUp() {
           email: lowerCaseEmail,
           username: lowerCaseUsername,
           password: password,
-          // image: image,
+          image,
         }),
       });
 
@@ -96,10 +116,8 @@ function SignUp() {
             label="Profile picture"
             placeholder="Click here"
             style={{ marginTop: "10px", maxWidth: "150px" }}
-            // onChange={(file) => {
-            //   if (!file) setImage(user);
-            //   else setImage(file);
-            // }}
+            // onChange={}
+            // TODO: Image goes here
           />
 
           {error && <Text color="red">{error}</Text>}
