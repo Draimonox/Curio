@@ -19,6 +19,7 @@ import { ChangeEvent } from "react";
 import Image, { StaticImageData } from "next/image";
 import { storage } from "@/firebaseConfig";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { setCookie } from "cookies-next";
 // import Cropper from "react-easy-crop";
 // import user from "../../public/user.png";
 
@@ -49,7 +50,7 @@ function SignUp() {
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  async function handleRegister(e: ChangeEvent<HTMLFormElement>) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -79,9 +80,11 @@ function SignUp() {
           image,
         }),
       });
-
+      const data = await response.json();
+      // console.log(data.token);
       if (response.ok) {
         alert("Account created successfully");
+        setCookie("token", data.token);
         window.location.href = "/main";
       } else {
         const data = await response.json();
@@ -179,7 +182,7 @@ function SignUp() {
             my="xl"
             label={
               <Anchor href="/login" target="_self" inherit>
-                Login
+                Log in
               </Anchor>
             }
           />

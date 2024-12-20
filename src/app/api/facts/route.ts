@@ -7,6 +7,8 @@ export async function GET() {
       `https://opentdb.com/api.php?amount=50&category=${example}`
     );
     const data = await res.json();
+
+    console.log(res);
     return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
     console.error(error);
