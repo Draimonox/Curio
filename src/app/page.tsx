@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Anchor,
   Button,
@@ -15,7 +15,7 @@ import {
 } from "@mantine/core";
 import logo from "../../public/trimmies.png";
 // import { useRouter } from "next/router";
-import { ChangeEvent } from "react";
+// import { ChangeEvent } from "react";
 import Image, { StaticImageData } from "next/image";
 import { storage } from "@/firebaseConfig";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -32,6 +32,10 @@ function SignUp() {
   );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   deleteCookie("JWT");
+  // }, []);
 
   async function handleImageUpload(file: File) {
     if (!file) {
@@ -84,7 +88,7 @@ function SignUp() {
       // console.log(data.token);
       if (response.ok) {
         alert("Account created successfully");
-        setCookie("token", data.token);
+        setCookie("JWT", data.token, { maxAge: 3600 });
         window.location.href = "/main";
       } else {
         const data = await response.json();

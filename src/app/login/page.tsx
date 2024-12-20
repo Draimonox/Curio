@@ -4,16 +4,15 @@ import {
   Button,
   Center,
   Divider,
-  FileInput,
   Flex,
   Input,
   PasswordInput,
   Title,
-  Tooltip,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/trimmies.png";
+import { setCookie } from "cookies-next";
 
 function LogIn() {
   const [username, setUsername] = useState("");
@@ -23,6 +22,26 @@ function LogIn() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    const lowerCaseUsername = username.toLowerCase();
+    const lowerCasePassword = password.toLowerCase();
+    try {
+      const response = await fetch("../api/logIn", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: lowerCaseUsername,
+          password: lowerCasePassword,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        window.location.href = "/main";
+        console.log(data.token);
+        setCookie("JWT", data.token, { maxAge: 3600 });
+      }
+    } catch {}
   }
   return (
     <>

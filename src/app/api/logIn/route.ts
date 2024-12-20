@@ -5,18 +5,18 @@ import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
   try {
     const { username, password } = await req.json();
 
-    if (!username || password) {
+    if (!username || !password) {
       return NextResponse.json(
         { error: "Please fill missing inputs" },
         { status: 400 }
       );
     }
     const lowerCaseUsername = username.toLowerCase();
-    const getUser = await prisma.user.findUnique({
+    const getUser = await prisma.user.findFirst({
       where: {
         username: lowerCaseUsername,
       },
@@ -25,13 +25,19 @@ export async function GET(req: Request) {
     console.log("Found user:", getUser);
 
     if (!getUser) {
-      return NextResponse.json({ error: "user not found" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Username incorrect" },
+        { status: 400 }
+      );
     }
 
     const comparePasswords = bcrypt.compare(password, getUser.password);
 
     if (!comparePasswords) {
-      return NextResponse.json({ error: "Invalid Password" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Password incorrect" },
+        { status: 401 }
+      );
     }
 
     const secret = process.env.JWT_SECRET;
