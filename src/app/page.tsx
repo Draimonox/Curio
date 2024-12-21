@@ -89,7 +89,7 @@ function SignUp() {
       if (response.ok) {
         alert("Account created successfully");
         setCookie("JWT", data.token, { maxAge: 3600 });
-        window.location.href = "/main";
+        window.location.href = "/home";
       } else {
         const data = await response.json();
         setError(data.error || "An error occurred while creating your account");

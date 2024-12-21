@@ -37,7 +37,7 @@ function LogIn() {
       console.log(data);
 
       if (response.ok) {
-        window.location.href = "/main";
+        window.location.href = "/home";
         console.log(data.token);
         setCookie("JWT", data.token, { maxAge: 3600 });
       }
