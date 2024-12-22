@@ -48,7 +48,7 @@ function LogIn() {
       <Center style={{ padding: "20px" }}>
         <Image src={logo} alt="Logo" height={50} />
       </Center>
-      <Center style={{ marginTop: "10vh" }}>
+      <Center style={{ marginTop: "15vh" }}>
         <form style={{ width: "20%" }} onSubmit={handleLogin}>
           <Title order={1}>Log in</Title>
           <Divider my="md" />

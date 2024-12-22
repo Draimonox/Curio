@@ -1,6 +1,7 @@
 "use client";
 import { hasCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
+import Header from "../components/header";
 
 function MainPage() {
   const [isAllowed, setIsAllowed] = useState(false);
@@ -20,7 +21,8 @@ function MainPage() {
 
   return (
     <>
-      <div>Hellow World</div>;
+      <Header />
+      <div>Hellow World</div>
     </>
   );
 }
