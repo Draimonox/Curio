@@ -15,6 +15,8 @@ function MainPage() {
     }
   }, []);
 
+  // FAKE API (https://jsonplaceholder.typicode.com/posts)
+
   if (!isAllowed) {
     return null;
   }
