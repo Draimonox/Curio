@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import logo from "../../../public/trimmies.png";
 
 function Header() {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const router = useRouter();
 
   function logOut() {
@@ -22,38 +22,38 @@ function Header() {
     router.push("/");
   }
 
-  useEffect(() => {
-    async function fetchUsername() {
-      if (token) {
-        try {
-          const decodedToken = jwt.decode(token as string);
-          const authorId = (decodedToken as jwt.JwtPayload)?.id;
+  // useEffect(() => {
+  //   async function fetchUsername() {
+  //     if (token) {
+  //       try {
+  //         const decodedToken = jwt.decode(token as string);
+  //         const authorId = (decodedToken as jwt.JwtPayload)?.id;
 
-          if (authorId) {
-            // Fetch the username using the authorId
-            const res = await fetch(`/api/blogUp?authorId=${authorId}`, {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
+  //         if (authorId) {
+  //           // Fetch the username using the authorId
+  //           const res = await fetch(`/api/blogUp?authorId=${authorId}`, {
+  //             method: "GET",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //             },
+  //           });
 
-            const data = await res.json();
+  //           const data = await res.json();
 
-            if (res.ok) {
-              await setUsername(data.username);
-            } else {
-              console.error("Failed to fetch username:", data.error);
-            }
-          }
-        } catch (err) {
-          console.error("Failed to decode token or fetch username:", err);
-        }
-      }
-    }
+  //           if (res.ok) {
+  //             await setUsername(data.username);
+  //           } else {
+  //             console.error("Failed to fetch username:", data.error);
+  //           }
+  //         }
+  //       } catch (err) {
+  //         console.error("Failed to decode token or fetch username:", err);
+  //       }
+  //     }
+  //   }
 
-    fetchUsername();
-  }, [token]);
+  //   fetchUsername();
+  // }, [token]);
 
   return (
     <>
