@@ -15,7 +15,7 @@ function Header() {
   function logOut() {
     console.log("Logging out...");
     deleteCookie("JWT");
-    window.location.href = "/login";
+    window.location.href = "/";
   }
   const token = getCookie("JWT");
   if (!token) {
@@ -79,7 +79,7 @@ function Header() {
         />
 
         <div style={{ display: "flex", gap: "10px" }}>
-          <Button
+          {/* <Button
             variant="light"
             color="blue"
             size="lg"
@@ -89,7 +89,7 @@ function Header() {
             }}
           >
             Search
-          </Button>
+          </Button> */}
           {/* <Button
             variant="light"
             color="gray"
