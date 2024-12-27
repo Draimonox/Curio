@@ -2,10 +2,11 @@
 import { hasCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import Header from "../components/header";
+import { Center } from "@mantine/core";
 
 function MainPage() {
   const [isAllowed, setIsAllowed] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<{ id: number; body: string }[]>([]);
 
   const cookieCheck = hasCookie("JWT");
   useEffect(() => {
@@ -48,12 +49,13 @@ function MainPage() {
   return (
     <>
       <Header />
-      <div>Hellow World</div>
       {data.map((post) => (
-        <div key={post.id}>
-          {" "}
-          <p>{post.body}</p>
-        </div>
+        <Center key={post.id}>
+          <div style={{ width: "25vw", padding: "50px" }}>
+            <h3>{post.id}</h3>
+            <p>{post.body}</p>
+          </div>
+        </Center>
       ))}
     </>
   );
