@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "./../../public/trimmies.png";
+import logo from "../../public/trimmies.png";
 import { setCookie } from "cookies-next";
 
 function LogIn() {
